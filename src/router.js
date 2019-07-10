@@ -12,6 +12,12 @@ export default new Router({
       name: "home",
       component: () =>
         import(/* webpackChunkName: "home" */ "./views/Home.vue")
+    },
+    {
+      path: "/Impact",
+      name: "impact",
+      component: () =>
+        import(/* webpackChunkName: "impact" */ "./views/Impact.vue")
     }
     // {
     //   path: "/about",

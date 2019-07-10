@@ -1,28 +1,39 @@
 <template>
-    <v-container grid-list-xl fluid>
-        <v-layout row wrap>
-          <v-flex 
-            xs12 
-            sm6 
-            v-for="project in projects"
-            :key="project.name"
-
-          >
-              <v-card>
-                <v-img
-                  :src="project.src"
-                  height="150px"
-                ></v-img>
-              </v-card>
-    </v-flex>
-  </v-layout>
-    </v-container>
+  <!-- <v-container> -->
+    <transition name="fade">
+        <v-container 
+          grid-list-xl  
+          v-if="!show"
+        >
+            <v-layout row wrap>
+                <v-flex 
+                  xs12 
+                  sm6
+                  v-for="project in projects"
+                  :key="project.name"
+                >
+                    <v-hover>
+                        <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 24 : 2}`">
+                            <router-link :to="'/' + project.name" class="first-row w-100">
+                                <v-img
+                                  :src="project.src"
+                                  aspect-ratio="1.9"
+                                ></v-img>
+                            </router-link>
+                        </v-card>  
+                    </v-hover>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </transition>
+  <!-- </v-container> -->
 </template>
 
 <script>
 export default {
   data() {
     return {
+      show: true,
       projects: [
 				{
           src: require("@/assets/ImpactLogo.jpg"),
@@ -52,32 +63,20 @@ export default {
           src: require('@/assets/VahanaLogo.png'),
           name: 'Vahana'
         }
-			],
-			projectsChunked: [],
+			]
     }
   },
-  // mounted() {
-	// 	this.projectsChunked = this.chunk(this.projects, 2)
-	// },
-  // methods: {
-  //   chunk(arr, size){
-  //     var chunkedArr = [];
-      
-	// 		var noOfChunks = Math.ceil(arr.length/size);
-
-	// 		console.log(noOfChunks);
-
-  // 		for(var i=0; i<noOfChunks; i++){
-  //       chunkedArr.push(arr.slice(i*size, (i+1)*size));
-	// 		}
-
-  //     this.$emit('projectsFromChild', this.projects)
-  //  		return chunkedArr;
-	// 	}
-  // }
+  mounted() {
+    this.show = false
+  }
 }
 </script>
 
 <style>
-
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 </style>

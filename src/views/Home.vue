@@ -1,6 +1,6 @@
 <template>
   <v-container>
-      <v-carousel>
+      <v-carousel height="auto">
           <v-carousel-item
             v-for="(slide,i) in slides"
             :key="i"
@@ -56,3 +56,6 @@ import ProjectsList from '../components/ProjectsList'
     },
   }
 </script>
+
+<style scoped>
+</style>
